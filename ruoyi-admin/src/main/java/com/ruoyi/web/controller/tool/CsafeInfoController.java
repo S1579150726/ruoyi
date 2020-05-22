@@ -156,7 +156,7 @@ public class CsafeInfoController extends BaseController {
         Query query = new Query(params);
         Page<CsafeInfo> objects = PageHelper.startPage(query.getPage(), query.getLimit());
         List<CsafeInfo> page = csafeInfoService.page(query);
-        long total = objects.getTotal();
+        long total = objects.getTotal();//总数
         return new TableDataInfo(page,total );
     }
 }
