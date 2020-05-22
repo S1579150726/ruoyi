@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.web.controller.tool.mapper.CsafeVideoMapper">
+    
+    <resultMap type="com.ruoyi.web.controller.tool.entity.CsafeVideo" id="CsafeVideoResult">
+        <result property="vedioId"    column="vedio_id"    />
+        <result property="vedioUrl"    column="vedio_url"    />
+    </resultMap>
+
+    <sql id="selectCsafeVideoVo">
+        select vedio_id, vedio_url from csafe_video where 1=1
+    </sql>
+
+    <select id="selectCsafeVideoList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeVideo" resultMap="CsafeVideoResult">
+        <include refid="selectCsafeVideoVo"/>
+        <where>  
+            <if test="vedioUrl != null  and vedioUrl != ''"> and vedio_url = #{vedioUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectCsafeVideoById" parameterType="Long" resultMap="CsafeVideoResult">
+        <include refid="selectCsafeVideoVo"/>
+        and vedio_id = #{vedioId}
+    </select>
+        
+    <insert id="insertCsafeVideo" parameterType="com.ruoyi.web.controller.tool.entity.CsafeVideo" useGeneratedKeys="true" keyProperty="vedioId">
+        insert into csafe_video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vedioUrl != null  and vedioUrl != ''">vedio_url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vedioUrl != null  and vedioUrl != ''">#{vedioUrl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCsafeVideo" parameterType="com.ruoyi.web.controller.tool.entity.CsafeVideo">
+        update csafe_video
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vedioUrl != null  and vedioUrl != ''">vedio_url = #{vedioUrl},</if>
+        </trim>
+        where vedio_id = #{vedioId}
+    </update>
+
+    <delete id="deleteCsafeVideoById" parameterType="Long">
+        delete from csafe_video where vedio_id = #{vedioId}
+    </delete>
+
+    <delete id="deleteCsafeVideoByIds" parameterType="String">
+        delete from csafe_video where vedio_id in 
+        <foreach item="vedioId" collection="array" open="(" separator="," close=")">
+            #{vedioId}
+        </foreach>
+    </delete>
+    
+</mapper>

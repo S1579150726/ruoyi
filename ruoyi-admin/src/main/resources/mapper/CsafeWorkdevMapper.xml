@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.web.controller.tool.mapper.CsafeWorkdevMapper">
+    
+    <resultMap type="com.ruoyi.web.controller.tool.entity.CsafeWorkdev" id="CsafeWorkdevResult">
+        <result property="wdevId"    column="wdev_id"    />
+        <result property="wdevDate"    column="wdev_date"    />
+        <result property="wdevConrent"    column="wdev_conrent"    />
+    </resultMap>
+
+    <sql id="selectCsafeWorkdevVo">
+        select wdev_id, wdev_date, wdev_conrent from csafe_workdev
+    </sql>
+
+    <select id="selectCsafeWorkdevList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeWorkdev" resultMap="CsafeWorkdevResult">
+        <include refid="selectCsafeWorkdevVo"/>
+        <where>  
+            <if test="wdevDate != null "> and wdev_date = #{wdevDate}</if>
+            <if test="wdevConrent != null  and wdevConrent != ''"> and wdev_conrent = #{wdevConrent}</if>
+        </where>
+    </select>
+    
+    <select id="selectCsafeWorkdevById" parameterType="Long" resultMap="CsafeWorkdevResult">
+        <include refid="selectCsafeWorkdevVo"/>
+        where wdev_id = #{wdevId}
+    </select>
+        
+    <insert id="insertCsafeWorkdev" parameterType="com.ruoyi.web.controller.tool.entity.CsafeWorkdev" useGeneratedKeys="true" keyProperty="wdevId">
+        insert into csafe_workdev
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="wdevDate != null ">wdev_date,</if>
+            <if test="wdevConrent != null  and wdevConrent != ''">wdev_conrent,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="wdevDate != null ">#{wdevDate},</if>
+            <if test="wdevConrent != null  and wdevConrent != ''">#{wdevConrent},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCsafeWorkdev" parameterType="com.ruoyi.web.controller.tool.entity.CsafeWorkdev">
+        update csafe_workdev
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="wdevDate != null ">wdev_date = #{wdevDate},</if>
+            <if test="wdevConrent != null  and wdevConrent != ''">wdev_conrent = #{wdevConrent},</if>
+        </trim>
+        where wdev_id = #{wdevId}
+    </update>
+
+    <delete id="deleteCsafeWorkdevById" parameterType="Long">
+        delete from csafe_workdev where wdev_id = #{wdevId}
+    </delete>
+
+    <delete id="deleteCsafeWorkdevByIds" parameterType="String">
+        delete from csafe_workdev where wdev_id in 
+        <foreach item="wdevId" collection="array" open="(" separator="," close=")">
+            #{wdevId}
+        </foreach>
+    </delete>
+    <select id="page" resultMap="CsafeWorkdevResult"
+            parameterType="com.ruoyi.common.utils.bean.Query">
+        select * from csafe_workdev where 1=1
+        <if test="wdevId != null and wdevId !=''">
+            wdev_id = #{wdevId}
+        </if>
+        <if test="wdevDate != null and wdevDate !=''">
+            wdev_date = #{wdevDate}
+        </if>
+        <if test="wdevConrent != null and wdevConrent !=''">
+            wdev_conrent = #{wdevConrent}
+        </if>
+        ORDER  by wdev_id desc
+
+    </select>
+</mapper>
