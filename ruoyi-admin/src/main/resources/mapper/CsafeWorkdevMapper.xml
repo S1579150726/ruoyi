@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="com.ruoyi.web.controller.tool.entity.CsafeWorkdev" id="CsafeWorkdevResult">
         <result property="wdevId"    column="wdev_id"    />
         <result property="wdevDate"    column="wdev_date"    />
-        <result property="wdevConrent"    column="wdev_conrent"    />
+        <result property="wdevContent"    column="wdev_content"    />
     </resultMap>
 
     <sql id="selectCsafeWorkdevVo">
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectCsafeWorkdevVo"/>
         <where>  
             <if test="wdevDate != null "> and wdev_date = #{wdevDate}</if>
-            <if test="wdevConrent != null  and wdevConrent != ''"> and wdev_conrent = #{wdevConrent}</if>
+            <if test="wdevContent != null  and wdevContent != ''"> and wdev_content = #{wdevContent}</if>
         </where>
     </select>
     
@@ -31,11 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into csafe_workdev
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="wdevDate != null ">wdev_date,</if>
-            <if test="wdevConrent != null  and wdevConrent != ''">wdev_conrent,</if>
+            <if test="wdevContent != null  and wdevContent != ''">wdev_conrent,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="wdevDate != null ">#{wdevDate},</if>
-            <if test="wdevConrent != null  and wdevConrent != ''">#{wdevConrent},</if>
+            <if test="wdevContent != null  and wdevContent != ''">#{wdevConrent},</if>
          </trim>
     </insert>
 
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update csafe_workdev
         <trim prefix="SET" suffixOverrides=",">
             <if test="wdevDate != null ">wdev_date = #{wdevDate},</if>
-            <if test="wdevConrent != null  and wdevConrent != ''">wdev_conrent = #{wdevConrent},</if>
+            <if test="wdevContent != null  and wdevContent != ''">wdev_content = #{wdevContent},</if>
         </trim>
         where wdev_id = #{wdevId}
     </update>
@@ -67,10 +67,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="wdevDate != null and wdevDate !=''">
             wdev_date = #{wdevDate}
         </if>
-        <if test="wdevConrent != null and wdevConrent !=''">
-            wdev_conrent = #{wdevConrent}
+        <if test="wdevContent != null and wdevContent !=''">
+            wdev_content = #{wdevContent}
         </if>
-        ORDER  by wdev_id desc
+        ORDER  by wdev_id Asc
 
     </select>
 </mapper>

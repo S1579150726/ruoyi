@@ -46,10 +46,10 @@ public class CsafeWorkdevController extends BaseController
     /**
      * 根据ID查询工作动态列表
      */
-    @RequiresPermissions("system:workdev:list")
+    @RequiresPermissions("system:workdev:getById")
     @ApiOperation("获取工作状态信息")
     @ApiImplicitParam(name = "wdevId", value = "工作状态ID", required = true, dataType = "int", paramType = "path")
-    @PostMapping("/{wdevId}")
+    @PostMapping("/getById/{wdevId}")
     public AjaxResult getById(@PathVariable @ApiParam(value = "工作状态信息") Long wdevId)
     {
         CsafeWorkdev csafeWorkdev = csafeWorkdevService.selectCsafeWorkdevById(wdevId);
@@ -67,13 +67,14 @@ public class CsafeWorkdevController extends BaseController
                     @ApiImplicitParam(name = "limit", value = "显示的数量", dataType = "int", required = true, paramType = "query"),
                     @ApiImplicitParam(name="params",required = false)
             })
-    @RequiresPermissions("system:picscoll:list")
-    @PostMapping("/list")
-    public TableDataInfo list(@RequestParam Map<String, Object> params){
+    @RequiresPermissions("system:picscoll:getlist")
+    @PostMapping("/getlist")
+    public TableDataInfo getlist(@RequestParam Map<String, Object> params){
         Query query=new Query(params);
         Page<Object> page = PageHelper.startPage(query.getPage(), query.getLimit());
         List<CsafeWorkdev> list = csafeWorkdevService.page(query);
-        return getDataTable(list);
+        long total = page.getTotal();
+        return new TableDataInfo(list,total);
     }
 
     /**
@@ -106,7 +107,7 @@ public class CsafeWorkdevController extends BaseController
     @ApiImplicitParam(name = "CsafeWorkdev", value = "新增工作动态信息", dataType = "CsafeWorkdev")
     @RequiresPermissions("system:workdev:add")
     @Log(title = "工作动态", businessType = BusinessType.INSERT)
-    @PostMapping("/add")
+    @PostMapping("/addSave")
     public AjaxResult addSave(@RequestBody @ApiParam(value = "工作状态信息")CsafeWorkdev csafeWorkdev)
     {
         return toAjax(csafeWorkdevService.insertCsafeWorkdev(csafeWorkdev));
@@ -129,9 +130,9 @@ public class CsafeWorkdevController extends BaseController
 
     @ApiOperation("修改工作动态")
     @ApiImplicitParam(name = "CsafeWorkdev", value = "修改工作动态", dataType = "CsafeWorkdev")
-    @RequiresPermissions("system:workdev:edit")
+    @RequiresPermissions("system:workdev:editSave")
     @Log(title = "工作动态", businessType = BusinessType.UPDATE)
-    @PutMapping("/edit")
+    @PutMapping("/editSave")
     public AjaxResult editSave(@RequestBody @ApiParam(value = "工作状态信息")CsafeWorkdev csafeWorkdev)
     {
         return toAjax(csafeWorkdevService.updateCsafeWorkdev(csafeWorkdev));

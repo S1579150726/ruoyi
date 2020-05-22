@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.ruoyi.common.config.Global;
 import com.ruoyi.common.utils.bean.Query;
 import com.ruoyi.common.utils.file.FileUploadUtils;
+import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 import com.ruoyi.web.controller.tool.entity.CsafePicscoll;
 import com.ruoyi.web.controller.tool.entity.CsafeVideo;
 import com.ruoyi.web.controller.tool.service.ICsafePicscollService;
@@ -60,8 +61,8 @@ public class CsafePicscollController extends BaseController
      */
     @ApiOperation("获取图片")
     @ApiImplicitParam(name = "picId", value = "图片ID", required = true, dataType = "Long ", paramType = "query")
-    @PostMapping("/get")
-    public AjaxResult get(@RequestParam("picId") Long picId)
+    @PostMapping("/getPic")
+    public AjaxResult getPic(@RequestParam("picId") Long picId)
     {
         CsafePicscoll csafePicscoll = csafePicscollService.selectCsafePicscollById(picId);
         return AjaxResult.success(csafePicscoll.getPicUrl());
@@ -75,15 +76,16 @@ public class CsafePicscollController extends BaseController
             @ApiImplicitParam(name = "limit", value = "显示的数量", dataType = "int", required = true, paramType = "query"),
             @ApiImplicitParam(name="params",required = false)
     })
-    @RequiresPermissions("system:picscoll:list")
-    @PostMapping("/list")
+    @RequiresPermissions("system:picscoll:getPicList")
+    @PostMapping("/getPicList")
     @ResponseBody
-    public TableDataInfo list(@RequestParam Map<String, Object> params)
+    public TableDataInfo getPicList(@RequestParam Map<String, Object> params)
     {
         Query query=new Query(params);
         Page<Object> page = PageHelper.startPage(query.getPage(), query.getLimit());
         List<CsafePicscoll> list = csafePicscollService.page(query);
-        return getDataTable(list);
+        long total = page.getTotal();
+        return new TableDataInfo(list,total);
     }
 
     /**

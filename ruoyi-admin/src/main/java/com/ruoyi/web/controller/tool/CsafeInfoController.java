@@ -53,7 +53,7 @@ public class CsafeInfoController extends BaseController {
     @ApiOperation("通过ID获取综合信息")
     @ApiImplicitParam(name = "infoId", value = "综合信息ID", required = true, dataType = "Long", paramType = "path")
     @RequiresPermissions("system:info:list")
-    @GetMapping("/{infoId}")
+    @GetMapping("/getById/{infoId}")
     public AjaxResult getById(@PathVariable @ApiParam(value = "综合信息") Long infoId) {
         CsafeInfo csafeInfo = csafeInfoService.selectCsafeInfoById(infoId);
         if (csafeInfo.toString() != null && csafeInfo.toString().length() > 0) {
@@ -100,7 +100,7 @@ public class CsafeInfoController extends BaseController {
     @ApiOperation("新增综合信息")
     @ApiImplicitParam(name = "CsafeInfoId", value = "新增综合信息", dataType = "String")
     @Log(title = "综合信息", businessType = BusinessType.INSERT)
-    @PostMapping("/add")
+    @PostMapping("/addSave")
     public AjaxResult addSave(@RequestBody @ApiParam(value = "综合信息") CsafeInfo csafeInfo) {
         return toAjax(csafeInfoService.insertCsafeInfo(csafeInfo));
     }
@@ -123,7 +123,7 @@ public class CsafeInfoController extends BaseController {
     @ApiImplicitParam(name = "CsafeInfoId", value = "新增用户信息", dataType = "CsafeInfo")
     @RequiresPermissions("system:info:edit")
     @Log(title = "综合信息", businessType = BusinessType.UPDATE)
-    @PutMapping("/edit")
+    @PutMapping("/editSave")
     public AjaxResult editSave(@RequestBody @ApiParam(value = "综合信息") CsafeInfo csafeInfo) {
         return toAjax(csafeInfoService.updateCsafeInfo(csafeInfo));
     }
@@ -156,6 +156,7 @@ public class CsafeInfoController extends BaseController {
         Query query = new Query(params);
         Page<CsafeInfo> objects = PageHelper.startPage(query.getPage(), query.getLimit());
         List<CsafeInfo> page = csafeInfoService.page(query);
-        return getDataTable(page);
+        long total = objects.getTotal();
+        return new TableDataInfo(page,total );
     }
 }

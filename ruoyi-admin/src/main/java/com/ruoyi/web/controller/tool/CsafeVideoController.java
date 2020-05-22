@@ -56,11 +56,11 @@ public class CsafeVideoController extends BaseController
     /**
      * 查询视频信息列表
      */
-    @RequiresPermissions("system:video:get")
+    @RequiresPermissions("system:video:getVedio")
     @ApiOperation("获取视频信息")
     @ApiImplicitParam(name = "infoId", value = "视频ID", required = true, dataType = "Long", paramType = "query")
-    @GetMapping("/get")
-    public AjaxResult get(@RequestParam("infoId") Long id)
+    @GetMapping("/getVedio")
+    public AjaxResult getVedio(@RequestParam("infoId") Long id)
     {
         CsafeVideo csafeVideo = csafeVideoService.selectCsafeVideoById(id);
         String vedioUrl = csafeVideo.getVedioUrl();
@@ -137,11 +137,11 @@ public class CsafeVideoController extends BaseController
      * 修改保存视频字典
      */
     @ApiOperation("修改视频")
-    @ApiImplicitParam(name = "infoId", value = "视频Id", dataType = "Long",paramType = "query",required = true)
+    @ApiImplicitParam(name = "vedioId", value = "视频Id", dataType = "Long",paramType = "query",required = true)
     @RequiresPermissions("system:video:edit")
     @Log(title = "视频字典", businessType = BusinessType.UPDATE)
-    @PutMapping("/edit")
-    public AjaxResult editSave(@RequestParam("file") MultipartFile file,@RequestParam("infoId") Long infoId)
+    @PutMapping("/editSave")
+    public AjaxResult editSave(@RequestParam("file") MultipartFile file,@RequestParam("vedioId") Long vedioId)
     {
         String defaultBaseDir = Global.getUploadPath();
         try {
@@ -149,7 +149,7 @@ public class CsafeVideoController extends BaseController
             String url=defaultBaseDir+upload;
             String originalFilename = file.getOriginalFilename();
             CsafeVideo csafeVideo=new CsafeVideo();
-            csafeVideo.setVedioId(infoId);
+            csafeVideo.setVedioId(vedioId);
             csafeVideo.setVedioUrl(url);
             csafeVideoService.updateCsafeVideo(csafeVideo);
             return AjaxResult.success("上传成功", url);
@@ -163,12 +163,12 @@ public class CsafeVideoController extends BaseController
      * 删除视频字典
      */
     @ApiOperation("删除视频")
-    @ApiImplicitParam(name = "infoId", value = "视频Id", required = true, dataType = "Long", paramType = "query")
+    @ApiImplicitParam(name = "vedioId", value = "视频Id", required = true, dataType = "Long", paramType = "query")
     @RequiresPermissions("system:video:remove")
     @Log(title = "视频字典", businessType = BusinessType.DELETE)
     @DeleteMapping( "/remove/")
-    public AjaxResult remove(@RequestParam("infoID") Long id)
+    public AjaxResult remove(@RequestParam("vedioId") Long vedioId)
     {
-        return toAjax(csafeVideoService.deleteCsafeVideoById(id));
+        return toAjax(csafeVideoService.deleteCsafeVideoById(vedioId));
     }
 }

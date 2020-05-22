@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="picUrl != null and picUrl !=''">
             pic_url = #{pic_url}
         </if>
-        ORDER  by pic_id desc
+        ORDER  by pic_id Asc
 
     </select>
 </mapper>

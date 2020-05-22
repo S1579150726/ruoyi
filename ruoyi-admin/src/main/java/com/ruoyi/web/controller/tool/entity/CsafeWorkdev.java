@@ -26,7 +26,7 @@ public class CsafeWorkdev implements Serializable
 
     /** 工作动态内容 */
     @Excel(name = "工作动态内容")
-    private String wdevConrent;
+    private String wdevContent;
 
     public void setWdevId(Long wdevId) 
     {
@@ -48,12 +48,12 @@ public class CsafeWorkdev implements Serializable
     }
     public void setWdevConrent(String wdevConrent) 
     {
-        this.wdevConrent = wdevConrent;
+        this.wdevContent = wdevConrent;
     }
 
     public String getWdevConrent() 
     {
-        return wdevConrent;
+        return wdevContent;
     }
 
     @Override

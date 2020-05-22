@@ -71,6 +71,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="infoValue != null and infoValue !=''">
             info_value = #{infoValue}
         </if>
-        ORDER  by info_id desc
+        ORDER  by info_id Asc
     </select>
 </mapper>
