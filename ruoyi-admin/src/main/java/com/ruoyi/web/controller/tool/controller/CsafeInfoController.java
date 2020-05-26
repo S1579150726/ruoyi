@@ -1,29 +1,25 @@
-package com.ruoyi.web.controller.tool;
-
-import java.util.*;
+package com.ruoyi.web.controller.tool.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.ruoyi.common.core.page.PageDomain;
-import com.ruoyi.common.core.page.TableSupport;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.bean.Query;
+import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 import com.ruoyi.web.controller.tool.service.ICsafeInfoService;
 import io.swagger.annotations.*;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Update;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.page.TableDataInfo;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 综合信息Controller
@@ -67,8 +63,7 @@ public class CsafeInfoController extends BaseController {
     @ApiOperation("获取所有综合信息")
     @ApiImplicitParam(name = "params", value = "综合信息", required = false,  paramType = "data")
     @GetMapping("/getAllInfo")
-    public AjaxResult getAllInfo() {
-        CsafeInfo csafeInfo=new CsafeInfo();
+    public AjaxResult getAllInfo(CsafeInfo csafeInfo) {
         List<CsafeInfo> list = csafeInfoService.selectCsafeInfoList(csafeInfo);
         Map map=new HashMap();
         for (int i=0;i<list.size();i++){

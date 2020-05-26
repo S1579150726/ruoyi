@@ -21,8 +21,29 @@ public class CsafeWorkdev implements Serializable
     private Long wdevId;
 
     /** 工作动态日期 */
-    @Excel(name = "工作动态日期", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "工作动态日期", width = 30, dateFormat = "MM-dd")
     private Date wdevDate;
+
+    private String month;
+    private String day;
+    public void setMonth(String month)
+    {
+        this.month = month;
+    }
+
+    public String getMonth()
+    {
+        return month;
+    }
+    public void setDay(String day)
+    {
+        this.day = day;
+    }
+
+    public String getDay()
+    {
+        return day;
+    }
 
     /** 工作动态内容 */
     @Excel(name = "工作动态内容")
@@ -46,12 +67,12 @@ public class CsafeWorkdev implements Serializable
     {
         return wdevDate;
     }
-    public void setWdevConrent(String wdevConrent) 
+    public void setWdevContent(String wdevContent)
     {
-        this.wdevContent = wdevConrent;
+        this.wdevContent = wdevContent;
     }
 
-    public String getWdevConrent() 
+    public String getWdevContent()
     {
         return wdevContent;
     }
@@ -61,7 +82,7 @@ public class CsafeWorkdev implements Serializable
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("wdevId", getWdevId())
             .append("wdevDate", getWdevDate())
-            .append("wdevConrent", getWdevConrent())
+            .append("wdevContent", getWdevContent())
             .toString();
     }
 }

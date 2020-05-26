@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCsafeWorkdevVo">
-        select wdev_id, wdev_date, wdev_conrent from csafe_workdev
+        select wdev_id, wdev_date, wdev_content from csafe_workdev
     </sql>
 
     <select id="selectCsafeWorkdevList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeWorkdev" resultMap="CsafeWorkdevResult">
@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="wdevDate != null "> and wdev_date = #{wdevDate}</if>
             <if test="wdevContent != null  and wdevContent != ''"> and wdev_content = #{wdevContent}</if>
         </where>
+        ORDER BY wdev_date DESC
     </select>
     
     <select id="selectCsafeWorkdevById" parameterType="Long" resultMap="CsafeWorkdevResult">

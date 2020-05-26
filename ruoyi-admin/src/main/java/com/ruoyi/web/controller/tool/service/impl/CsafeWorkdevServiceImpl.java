@@ -3,7 +3,6 @@ package com.ruoyi.web.controller.tool.service.impl;
 import java.util.List;
 
 import com.ruoyi.common.utils.bean.Query;
-import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 import com.ruoyi.web.controller.tool.entity.CsafeWorkdev;
 import com.ruoyi.web.controller.tool.mapper.CsafeWorkdevMapper;
 import com.ruoyi.web.controller.tool.service.ICsafeWorkdevService;
