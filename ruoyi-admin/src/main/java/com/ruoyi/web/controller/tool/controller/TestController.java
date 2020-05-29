@@ -1,4 +1,4 @@
-package com.ruoyi.web.controller.tool;
+package com.ruoyi.web.controller.tool.controller;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
