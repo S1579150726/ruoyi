@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改图片')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-picscoll-edit" th:object="${csafePicscoll}" >
+        <input name="picId" th:field="*{picId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图片url：</label>
+            <div class="col-sm-8">
+               <!--<textarea name="picUrl" class="form-control" >[[*{picUrl}]]</textarea>-->
+                <!--<input name="picUrl1" class="form-control" type="file">-->
+                <input id="filePath" name="filePath" class="form-control" type="file">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script type="text/javascript">
+    var prefix = ctx + "system/picscoll";
+    $("#form-picscoll-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+            if ($('#filePath')[0].files[0] == null) {
+                $.modal.alertWarning("请先选择文件路径");
+                return false;
+            }
+            if ($.validate.form()) {
+                var formData = new FormData();
+                formData.append('fileName', $("#fileName").val());
+                formData.append('file', $('#filePath')[0].files[0]);
+                formData.append("picId",$("#picId").val());
+                $.ajax({
+                    url: prefix + "/edit",
+                    type: 'post',
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(result) {
+                        $.operate.successCallback(result);
+                    }
+                });
+           /* $.operate.save(prefix + "/edit", $('#form-picscoll-edit').serialize());*/
+        }
+    }
+</script>
+</body>
+</html>

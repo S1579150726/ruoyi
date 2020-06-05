@@ -19,6 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="wdevDate != null "> and wdev_date = #{wdevDate}</if>
             <if test="wdevContent != null  and wdevContent != ''"> and wdev_content = #{wdevContent}</if>
+            <if test="params.beginWdevDate != null and params.beginWdevDate != ''"><!-- 开始时间检索 -->
+                AND date_format(csafe_workdev.wdev_date,'%y%m%d') &gt;= date_format(#{params.beginWdevDate},'%y%m%d')
+            </if>
+            <if test="params.endWdevDate != null and params.endWdevDate != ''"><!-- 结束时间检索 -->
+                AND date_format(csafe_workdev.wdev_date,'%y%m%d') &lt;= date_format(#{params.endWdevDate},'%y%m%d')
+            </if>
+
         </where>
         ORDER BY wdev_date DESC
     </select>
@@ -32,11 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into csafe_workdev
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="wdevDate != null ">wdev_date,</if>
-            <if test="wdevContent != null  and wdevContent != ''">wdev_conrent,</if>
+            <if test="wdevContent != null  and wdevContent != ''">wdev_content,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="wdevDate != null ">#{wdevDate},</if>
-            <if test="wdevContent != null  and wdevContent != ''">#{wdevConrent},</if>
+            <if test="wdevContent != null  and wdevContent != ''">#{wdevContent},</if>
          </trim>
     </insert>
 
@@ -68,10 +75,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="wdevDate != null and wdevDate !=''">
             wdev_date = #{wdevDate}
         </if>
+        <if test="beginCreatetime != null and beginCreatetime !='' and endCreatetime !=null and endCreatetime !=''">
+            AND wdev_date between #{beginCreatetime} and #{endCreatetime}
+        </if>
         <if test="wdevContent != null and wdevContent !=''">
             wdev_content = #{wdevContent}
         </if>
-        ORDER  by wdev_id Asc
-
+        ORDER  by wdev_date Desc
     </select>
 </mapper>

@@ -2,7 +2,6 @@ package com.ruoyi.web.controller.tool.service.impl;
 
 import java.util.List;
 
-import com.ruoyi.common.utils.bean.Query;
 import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 import com.ruoyi.web.controller.tool.mapper.CsafeInfoMapper;
 import com.ruoyi.web.controller.tool.service.ICsafeInfoService;
@@ -14,7 +13,7 @@ import com.ruoyi.common.core.text.Convert;
  * 综合信息Service业务层处理
  * 
  * @author ruoyi
- * @date 2020-05-20
+ * @date 2020-06-04
  */
 @Service
 public class CsafeInfoServiceImpl implements ICsafeInfoService
@@ -32,11 +31,6 @@ public class CsafeInfoServiceImpl implements ICsafeInfoService
     public CsafeInfo selectCsafeInfoById(Long infoId)
     {
         return csafeInfoMapper.selectCsafeInfoById(infoId);
-    }
-
-    @Override
-    public List<CsafeInfo> page(Query query) {
-        return csafeInfoMapper.page(query);
     }
 
     /**

@@ -8,17 +8,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="infoId"    column="info_id"    />
         <result property="infoLabel"    column="info_label"    />
         <result property="infoValue"    column="info_value"    />
+        <result property="infoCode"    column="info_code"    />
+        <result property="infoUnit"    column="info_unit"    />
     </resultMap>
 
     <sql id="selectCsafeInfoVo">
-        select info_id, info_label, info_value from csafe_info
+        select info_id, info_label, info_value, info_code, info_unit from csafe_info
     </sql>
 
     <select id="selectCsafeInfoList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeInfo" resultMap="CsafeInfoResult">
         <include refid="selectCsafeInfoVo"/>
         <where>  
-            <if test="infoLabel != null  and infoLabel != ''"> and info_label = #{infoLabel}</if>
+            <if test="infoLabel != null  and infoLabel != ''"> and info_label like concat('%', #{infoLabel},'%')</if>
             <if test="infoValue != null  and infoValue != ''"> and info_value = #{infoValue}</if>
+            <if test="infoCode != null  and infoCode != ''"> and info_code = #{infoCode}</if>
+            <if test="infoUnit != null  and infoUnit != ''"> and info_unit = #{infoUnit}</if>
         </where>
     </select>
     
@@ -32,10 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="infoLabel != null  and infoLabel != ''">info_label,</if>
             <if test="infoValue != null  and infoValue != ''">info_value,</if>
+            <if test="infoCode != null  and infoCode != ''">info_code,</if>
+            <if test="infoUnit != null  and infoUnit != ''">info_unit,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="infoLabel != null  and infoLabel != ''">#{infoLabel},</if>
             <if test="infoValue != null  and infoValue != ''">#{infoValue},</if>
+            <if test="infoCode != null  and infoCode != ''">#{infoCode},</if>
+            <if test="infoUnit != null  and infoUnit != ''">#{infoUnit},</if>
          </trim>
     </insert>
 
@@ -44,6 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="infoLabel != null  and infoLabel != ''">info_label = #{infoLabel},</if>
             <if test="infoValue != null  and infoValue != ''">info_value = #{infoValue},</if>
+            <if test="infoCode != null  and infoCode != ''">info_code = #{infoCode},</if>
+            <if test="infoUnit != null  and infoUnit != ''">info_unit = #{infoUnit},</if>
         </trim>
         where info_id = #{infoId}
     </update>
@@ -58,19 +68,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{infoId}
         </foreach>
     </delete>
-    <select id="page" resultMap="CsafeInfoResult"
-            parameterType="com.ruoyi.common.utils.bean.Query">
-        select * from csafe_info where 1=1
-
-        <if test="infoId != null and infoId !=''">
-            info_id = #{infoId}
-        </if>
-        <if test="infoLabel != null and infoLabel !=''">
-            info_label = #{infoLabel}
-        </if>
-        <if test="infoValue != null and infoValue !=''">
-            info_value = #{infoValue}
-        </if>
-        ORDER  by info_id Asc
-    </select>
+    
 </mapper>

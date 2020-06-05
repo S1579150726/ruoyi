@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.web.controller.tool.mapper.CsafeTextMapper">
+    
+    <resultMap type="com.ruoyi.web.controller.tool.entity.CsafeText" id="CsafeTextResult">
+        <result property="textId"    column="text_id"    />
+        <result property="textLable"    column="text_lable"    />
+        <result property="textValue"    column="text_value"    />
+        <result property="isscroll"    column="isscroll"    />
+    </resultMap>
+
+    <sql id="selectCsafeTextVo">
+        select text_id, text_lable, text_value, isscroll from csafe_text
+    </sql>
+
+    <select id="selectCsafeTextList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeText" resultMap="CsafeTextResult">
+        <include refid="selectCsafeTextVo"/>
+        <where>  
+            <if test="textLable != null  and textLable != ''"> and text_lable = #{textLable}</if>
+            <if test="textValue != null  and textValue != ''"> and text_value = #{textValue}</if>
+            <if test="isscroll != null  and isscroll != ''"> and isscroll = #{isscroll}</if>
+        </where>
+    </select>
+    
+    <select id="selectCsafeTextById" parameterType="Long" resultMap="CsafeTextResult">
+        <include refid="selectCsafeTextVo"/>
+        where text_id = #{textId}
+    </select>
+        
+    <insert id="insertCsafeText" parameterType="com.ruoyi.web.controller.tool.entity.CsafeText" useGeneratedKeys="true" keyProperty="textId">
+        insert into csafe_text
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="textLable != null  and textLable != ''">text_lable,</if>
+            <if test="textValue != null  and textValue != ''">text_value,</if>
+            <if test="isscroll != null  and isscroll != ''">isscroll,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="textLable != null  and textLable != ''">#{textLable},</if>
+            <if test="textValue != null  and textValue != ''">#{textValue},</if>
+            <if test="isscroll != null  and isscroll != ''">#{isscroll},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCsafeText" parameterType="com.ruoyi.web.controller.tool.entity.CsafeText">
+        update csafe_text
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="textLable != null  and textLable != ''">text_lable = #{textLable},</if>
+            <if test="textValue != null  and textValue != ''">text_value = #{textValue},</if>
+            <if test="isscroll != null  and isscroll != ''">isscroll = #{isscroll},</if>
+        </trim>
+        where text_id = #{textId}
+    </update>
+
+    <delete id="deleteCsafeTextById" parameterType="Long">
+        delete from csafe_text where text_id = #{textId}
+    </delete>
+
+    <delete id="deleteCsafeTextByIds" parameterType="String">
+        delete from csafe_text where text_id in 
+        <foreach item="textId" collection="array" open="(" separator="," close=")">
+            #{textId}
+        </foreach>
+    </delete>
+    
+</mapper>

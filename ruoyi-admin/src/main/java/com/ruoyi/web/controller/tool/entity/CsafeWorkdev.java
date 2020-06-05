@@ -13,7 +13,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * @author ruoyi
  * @date 2020-05-20
  */
-public class CsafeWorkdev implements Serializable
+public class CsafeWorkdev extends BaseEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -24,26 +24,6 @@ public class CsafeWorkdev implements Serializable
     @Excel(name = "工作动态日期", width = 30, dateFormat = "MM-dd")
     private Date wdevDate;
 
-    private String month;
-    private String day;
-    public void setMonth(String month)
-    {
-        this.month = month;
-    }
-
-    public String getMonth()
-    {
-        return month;
-    }
-    public void setDay(String day)
-    {
-        this.day = day;
-    }
-
-    public String getDay()
-    {
-        return day;
-    }
 
     /** 工作动态内容 */
     @Excel(name = "工作动态内容")

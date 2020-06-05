@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改【跳转配置】')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-srefresh-edit" th:object="${csafeSrefresh}">
+            <input name="screenid" th:field="*{screenid}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">跳转Url：</label>
+                <div class="col-sm-8">
+                    <input name="screenurl" th:field="*{screenurl}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">跳转时间（分）：</label>
+                <div class="col-sm-8">
+                    <input name="screentime" th:field="*{screentime}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "system/srefresh";
+        $("#form-srefresh-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-srefresh-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

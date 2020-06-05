@@ -1,3 +1,4 @@
+/*
 package com.ruoyi.web.controller.tool.entity.webServiceUtils;
 
 import java.util.Calendar;
@@ -26,3 +27,4 @@ public class TestClient {
 
     }
 }
+*/

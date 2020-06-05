@@ -1,15 +1,13 @@
 package com.ruoyi.web.controller.tool.service;
 
-import com.ruoyi.common.utils.bean.Query;
-import com.ruoyi.web.controller.tool.entity.CsafeInfo;
-
 import java.util.List;
+import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 
 /**
  * 综合信息Service接口
  * 
  * @author ruoyi
- * @date 2020-05-20
+ * @date 2020-06-04
  */
 public interface ICsafeInfoService 
 {
@@ -20,10 +18,6 @@ public interface ICsafeInfoService
      * @return 综合信息
      */
     public CsafeInfo selectCsafeInfoById(Long infoId);
-    /*
-    * 分页查询
-    * */
-    public List<CsafeInfo> page(Query query);
 
     /**
      * 查询综合信息列表

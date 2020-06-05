@@ -1,15 +1,13 @@
 package com.ruoyi.web.controller.tool.mapper;
 
 import java.util.List;
-
-import com.ruoyi.common.utils.bean.Query;
 import com.ruoyi.web.controller.tool.entity.CsafeInfo;
 
 /**
  * 综合信息Mapper接口
  * 
  * @author ruoyi
- * @date 2020-05-20
+ * @date 2020-06-04
  */
 public interface CsafeInfoMapper 
 {
@@ -60,5 +58,4 @@ public interface CsafeInfoMapper
      * @return 结果
      */
     public int deleteCsafeInfoByIds(String[] infoIds);
-    public List<CsafeInfo> page(Query query);
 }

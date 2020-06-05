@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.web.controller.tool.mapper.CsafeSrefreshMapper">
+    
+    <resultMap type="com.ruoyi.web.controller.tool.entity.CsafeSrefresh" id="CsafeSrefreshResult">
+        <result property="screenid"    column="screenId"    />
+        <result property="screenurl"    column="screenUrl"    />
+        <result property="screentime"    column="screentime"    />
+    </resultMap>
+
+    <sql id="selectCsafeSrefreshVo">
+        select screenId, screenUrl, screentime from csafe_srefresh
+    </sql>
+
+    <select id="selectCsafeSrefreshList" parameterType="com.ruoyi.web.controller.tool.entity.CsafeSrefresh" resultMap="CsafeSrefreshResult">
+        <include refid="selectCsafeSrefreshVo"/>
+        <where>  
+            <if test="screenurl != null  and screenurl != ''"> and screenUrl = #{screenurl}</if>
+            <if test="screentime != null "> and screentime = #{screentime}</if>
+        </where>
+    </select>
+    
+    <select id="selectCsafeSrefreshById" parameterType="Long" resultMap="CsafeSrefreshResult">
+        <include refid="selectCsafeSrefreshVo"/>
+        where screenId = #{screenid}
+    </select>
+        
+    <insert id="insertCsafeSrefresh" parameterType="com.ruoyi.web.controller.tool.entity.CsafeSrefresh" useGeneratedKeys="true" keyProperty="screenid">
+        insert into csafe_srefresh
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="screenurl != null  and screenurl != ''">screenUrl,</if>
+            <if test="screentime != null ">screentime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="screenurl != null  and screenurl != ''">#{screenurl},</if>
+            <if test="screentime != null ">#{screentime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCsafeSrefresh" parameterType="com.ruoyi.web.controller.tool.entity.CsafeSrefresh">
+        update csafe_srefresh
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="screenurl != null  and screenurl != ''">screenUrl = #{screenurl},</if>
+            <if test="screentime != null ">screentime = #{screentime},</if>
+        </trim>
+        where screenId = #{screenid}
+    </update>
+
+    <delete id="deleteCsafeSrefreshById" parameterType="Long">
+        delete from csafe_srefresh where screenId = #{screenid}
+    </delete>
+
+    <delete id="deleteCsafeSrefreshByIds" parameterType="String">
+        delete from csafe_srefresh where screenId in 
+        <foreach item="screenid" collection="array" open="(" separator="," close=")">
+            #{screenid}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,3 +1,4 @@
+/*
 package com.ruoyi.web.controller.tool.controller;
 
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 
+*/
 /**
  * swagger 用户测试方法
  * 
  * @author ruoyi
- */
+ *//*
+
 @Api("用户信息管理")
 @RestController
 @RequestMapping("/test/user")
@@ -173,3 +176,4 @@ class UserEntity
         this.mobile = mobile;
     }
 }
+*/

@@ -5,15 +5,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
-import java.io.Serializable;
-
 /**
  * 综合信息对象 csafe_info
  * 
  * @author ruoyi
- * @date 2020-05-20
+ * @date 2020-06-04
  */
-public class CsafeInfo implements Serializable
+public class CsafeInfo extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +25,14 @@ public class CsafeInfo implements Serializable
     /** 信息详细内容 */
     @Excel(name = "信息详细内容")
     private String infoValue;
+
+    /** 信息标题英文名 */
+    @Excel(name = "信息标题英文名")
+    private String infoCode;
+
+    /** 信息单位 */
+    @Excel(name = "信息单位")
+    private String infoUnit;
 
     public void setInfoId(Long infoId) 
     {
@@ -55,6 +61,24 @@ public class CsafeInfo implements Serializable
     {
         return infoValue;
     }
+    public void setInfoCode(String infoCode) 
+    {
+        this.infoCode = infoCode;
+    }
+
+    public String getInfoCode() 
+    {
+        return infoCode;
+    }
+    public void setInfoUnit(String infoUnit) 
+    {
+        this.infoUnit = infoUnit;
+    }
+
+    public String getInfoUnit() 
+    {
+        return infoUnit;
+    }
 
     @Override
     public String toString() {
@@ -62,6 +86,8 @@ public class CsafeInfo implements Serializable
             .append("infoId", getInfoId())
             .append("infoLabel", getInfoLabel())
             .append("infoValue", getInfoValue())
+            .append("infoCode", getInfoCode())
+            .append("infoUnit", getInfoUnit())
             .toString();
     }
 }

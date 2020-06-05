@@ -260,9 +260,11 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/profile/upload/**", "anon,captchaValidate");
         filterChainDefinitionMap.put("/system/picscoll/export", "anon,captchaValidate");
         filterChainDefinitionMap.put("/system/toptext/export", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/system/watertext/getWaterText", "anon,captchaValidate");
         filterChainDefinitionMap.put("/system/find/**", "anon,captchaValidate");
-        filterChainDefinitionMap.put("/system/toptext/getList", "anon,captchaValidate");
-
+        filterChainDefinitionMap.put("/system/timeconfig/list", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/system/text/list", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/system/srefresh/getSRlist", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/register", "anon,captchaValidate");
         // 系统权限列表

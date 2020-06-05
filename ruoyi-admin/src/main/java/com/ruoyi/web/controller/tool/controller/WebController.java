@@ -1,16 +1,17 @@
+/*
+
+
 package com.ruoyi.web.controller.tool.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.web.controller.tool.entity.webServiceUtils.FindAreaCount;
 import com.ruoyi.web.controller.tool.entity.webServiceUtils.GetAuthParams;
 import com.ruoyi.web.controller.tool.entity.webServiceUtils.ZhsfService;
 import com.ruoyi.web.controller.tool.entity.webServiceUtils.ZhsfService_Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.validator.constraints.EAN;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,14 +21,291 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "大屏接口管理之findWaterRz")
+@Api(tags = "大屏接口管理")
 @RestController
 @RequestMapping("/system/find")
 public class WebController extends BaseController {
-    private GetAuthParams getAuthParams;
+    private static GetAuthParams getAuthParams;
     private static ZhsfService_Service zhsfService_Service=new ZhsfService_Service();
     private static ZhsfService zhsfServicePort=zhsfService_Service.getZhsfServicePort();
-    @ApiOperation("左屏：统计水库、河道、积涝点水位预警数目")
+
+    @ApiOperation("应急信息接口")
+    @GetMapping("/findAreaCount")
+    public AjaxResult cfindAreaCount(){
+        GetAuthParams getAuthParams1 = new GetAuthParams("findAreaCount");
+        String waterAlwtlv = zhsfServicePort.findAreaCount(getAuthParams1.appkey, getAuthParams1.time, getAuthParams1.sigin);
+        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
+        JSONArray result = jsonObject.getJSONArray("RESULT");
+        JSONArray objects=null;
+        Map<Object, Object> map1=null;
+        Map<Object, Object> map2=null;
+        Map<Object, Object> map3=null;
+        Map<Object, Object> map4=null;
+        Map<Object, Object> map5=null;
+        Map<Object, Object> map6=null;
+        Map<Object, Object> map7=null;
+        Map<Object, Object> map8=null;
+        Map<Object, Object> map9=null;
+        Map<Object, Object> map10=null;
+        Map<Object, Object> map11=null;
+        if (result!=null&&result.size()>0){
+            objects = new JSONArray();
+            map1 = new HashMap<>();
+            map1.put("DSNM","光明区");
+            map1.put("PNUM",0);
+            map2 = new HashMap<>();
+            map2.put("DSNM","宝安区");
+            map2.put("PNUM",0);
+            map3 = new HashMap<>();
+            map3.put("DSNM","龙华区");
+            map3.put("PNUM",0);
+            map4 = new HashMap<>();
+            map4.put("DSNM","南山区");
+            map4.put("PNUM",0);
+            map5 = new HashMap<>();
+            map5.put("DSNM","福田区");
+            map5.put("PNUM",0);
+            map6 = new HashMap<>();
+            map6.put("DSNM","罗湖区");
+            map6.put("PNUM",0);
+            map7 = new HashMap<>();
+            map7.put("DSNM","盐田区");
+            map7.put("PNUM",0);
+            map8 = new HashMap<>();
+            map8.put("DSNM","龙岗区");
+            map8.put("PNUM",0);
+            map9 = new HashMap<>();
+            map9.put("DSNM","坪山区");
+            map9.put("PNUM",0);
+            map10 = new HashMap<>();
+            map10.put("DSNM","大鹏新区");
+            map10.put("PNUM",0);
+            map11 = new HashMap<>();
+            map11.put("DSNM","深汕合作区");
+            map11.put("PNUM",0);
+                for (int i=0;i<result.size();i++){
+                    JSONObject jsonObject1 = result.getJSONObject(i);
+                    String dsnm = jsonObject1.getString("DSNM");
+                    Integer ck = jsonObject1.getInteger("CK");
+                    Integer bncssl = jsonObject1.getInteger("BNCSSL");
+                    Integer qxdw = jsonObject1.getInteger("QXDW");
+                    if (dsnm != null && dsnm.equals("光明区")) {
+                        map1.put("CK",ck);
+                        map1.put("BNCSSL",bncssl);
+                        map1.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("宝安区")) {
+                        map2.put("CK",ck);
+                        map2.put("BNCSSL",bncssl);
+                        map2.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("龙华区")) {
+                        map3.put("CK",ck);
+                        map3.put("BNCSSL",bncssl);
+                        map3.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("南山区")) {
+                        map4.put("CK",ck);
+                        map4.put("BNCSSL",bncssl);
+                        map4.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("福田区")) {
+                        map5.put("CK",ck);
+                        map5.put("BNCSSL",bncssl);
+                        map5.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("罗湖区")) {
+                        map6.put("CK",ck);
+                        map6.put("BNCSSL",bncssl);
+                        map6.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("盐田区")) {
+                        map7.put("CK",ck);
+                        map7.put("BNCSSL",bncssl);
+                        map7.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("龙岗区")) {
+                        map8.put("CK",ck);
+                        map8.put("BNCSSL",bncssl);
+                        map8.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("坪山区")) {
+                        map9.put("CK",ck);
+                        map9.put("BNCSSL",bncssl);
+                        map9.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("大鹏新区")) {
+                        map10.put("CK",ck);
+                        map10.put("BNCSSL",bncssl);
+                        map10.put("QXDW",qxdw);
+                    } else if (dsnm != null && dsnm.equals("深汕合作区")) {
+                        map11.put("CK",ck);
+                        map11.put("BNCSSL",bncssl);
+                        map11.put("QXDW",qxdw);
+                    }
+                }
+        }
+        GetAuthParams getAuthParams = new GetAuthParams("findErnyctrinf");
+        String ernyctrinf = zhsfServicePort.findErnyctrinf(getAuthParams.appkey, getAuthParams.getTime(), getAuthParams.sigin);
+        JSONObject jsonObject3 = JSON.parseObject(ernyctrinf);
+        JSONArray result3 = jsonObject3.getJSONArray("RESULT");
+        if (result3!=null&&result3.size()>0) {
+            for (int j = 0; j < result3.size(); j++) {
+                JSONObject jsonObject2 = result3.getJSONObject(j);
+                String dsnm = jsonObject2.getString("DSNM");
+                String ernyctlkn = jsonObject2.getString("ERNYCTLKN");
+                if (dsnm != null && dsnm.equals("光明区")&&ernyctlkn!=null) {
+                    map1.put("PNUM", (Integer) map1.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("宝安区")&&ernyctlkn!=null) {
+                    map2.put("PNUM", (Integer) map2.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("龙华区")&&ernyctlkn!=null) {
+                    map3.put("PNUM", (Integer) map3.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("南山区")&&ernyctlkn!=null) {
+                    map4.put("PNUM", (Integer) map4.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("福田区")&&ernyctlkn!=null) {
+                    map5.put("PNUM", (Integer) map5.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("罗湖区")&&ernyctlkn!=null) {
+                    map6.put("PNUM", (Integer) map6.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("盐田区")&&ernyctlkn!=null) {
+                    map7.put("PNUM", (Integer) map7.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("龙岗区")&&ernyctlkn!=null) {
+                    map8.put("PNUM", (Integer) map8.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("坪山区")&&ernyctlkn!=null) {
+                    map9.put("PNUM", (Integer) map9.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("大鹏新区")&&ernyctlkn!=null) {
+                    map10.put("PNUM", (Integer) map10.get("PNUM") + 1);
+                } else if (dsnm != null && dsnm.equals("深汕合作区")&&ernyctlkn!=null) {
+                    map11.put("PNUM", (Integer) map11.get("PNUM") + 1);
+                }
+            }
+            objects.add(map1);
+            objects.add(map2);
+            objects.add(map3);
+            objects.add(map4);
+            objects.add(map5);
+            objects.add(map6);
+            objects.add(map7);
+            objects.add(map8);
+            objects.add(map9);
+            objects.add(map10);
+            objects.add(map11);
+        }
+        if (objects!=null&&objects.size()>0){
+            return AjaxResult.success("查询成功",objects);
+        }else
+        return AjaxResult.error("查询失败");
+    }
+
+    @ApiOperation("左屏：水位与潮汐接口")
+    @GetMapping("/findWaterRz")
+    public AjaxResult cfindWaterRz(){
+        getAuthParams = new GetAuthParams("findWaterRz");
+        String waterAlwtlv = zhsfServicePort.findWaterRz(getAuthParams.appkey, getAuthParams.getTime(), getAuthParams.sigin);
+        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
+        JSONArray result = jsonObject.getJSONArray("RESULT");
+        JSONArray objects = null;
+        Map map=null;
+        Map map2=null;
+        Map map3=null;
+        if (result!=null&&result.size()>0){
+            objects=new JSONArray();
+            map=new HashMap();
+            map.put("TP","水库水位");
+            map.put("ZCSL",0);
+            map.put("CXQSL",0);
+            map2=new HashMap();
+            map2.put("TP","河道水位");
+            map2.put("ZCSL",0);
+            map2.put("CXQSL",0);
+            map3=new HashMap();
+            map3.put("TP","积涝点水位");
+            map3.put("ZCSL",0);
+            map3.put("CXQSL",0);
+            for (int i=0;i<result.size();i++){
+                JSONObject jsonObject1 = result.getJSONObject(i);
+                String tp = jsonObject1.getString("TP");
+                Float xxsw = jsonObject1.getFloat("XXSW");
+                String xfcxx = jsonObject1.getString("XFCXX");
+                if (tp!=null&&tp.equals("水库")){
+                    if (xfcxx!=null&&xfcxx.equals("否")){
+                        map.put("ZCSL",(Integer)map.get("ZCSL")+1);
+                    }else{
+                        map.put("CXQSL",(Integer)map.get("CXQSL")+1);
+                    }
+                }else if (tp!=null&&tp.equals("河道")){
+                    if (xfcxx!=null&&xfcxx.equals("否")){
+                        map2.put("ZCSL",(Integer)map2.get("ZCSL")+1);
+                    }else{
+                        map2.put("CXQSL",(Integer)map2.get("CXQSL")+1);
+                    }
+                }if (tp!=null&&tp.equals("积水")){
+                    if (xfcxx!=null&&xfcxx.equals("否")){
+                        map3.put("ZCSL",(Integer)map3.get("ZCSL")+1);
+                    }else{
+                        map3.put("CXQSL",(Integer)map3.get("CXQSL")+1);
+                    }
+                }
+            }
+            objects.add(map);
+            objects.add(map2);
+            objects.add(map3);
+        }
+
+        if (objects!=null&&objects.size()>0){
+            return AjaxResult.success("查询成功",objects);
+        }else
+        return AjaxResult.error("查询失败");
+    }
+
+    @ApiOperation("左屏：水位时间图")
+    @GetMapping("/findWaterRzTime")
+    public AjaxResult cfindWaterRzTime(){
+        getAuthParams = new GetAuthParams("findWaterRz");
+        String waterAlwtlv = zhsfServicePort.findWaterRz(getAuthParams.appkey, getAuthParams.getTime(), getAuthParams.sigin);
+        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
+        JSONArray result = jsonObject.getJSONArray("RESULT");
+        JSONArray objects = null;
+        Map<Object, Object> map1=null;
+        Map<Object, Object> map2=null;
+        Map<Object, Object> map3=null;
+        if (result!=null&&result.size()>0){
+            map1= new HashMap<>();
+            List<Object> waterList = new ArrayList<>();
+            List<Object> timeList = new ArrayList<>();
+            map1.put("name","龙岗区");
+            map2= new HashMap<>();
+            List<Object> waterList2 = new ArrayList<>();
+            List<Object> timeList2 = new ArrayList<>();
+            map2.put("name","宝安区");
+            map3= new HashMap<>();
+            List<Object> waterList3 = new ArrayList<>();
+            List<Object> timeList3 = new ArrayList<>();
+            map3.put("name","福田区");
+            for (int i=0;i<result.size();i++){
+                JSONObject jsonObject1 = result.getJSONObject(i);
+                String dm = jsonObject1.getString("QH");
+                Float rz = jsonObject1.getFloat("RZ");
+                String tm = jsonObject1.getString("TM");
+                if (dm!=null&&dm.equals("龙岗区")){
+                    waterList.add(i,rz);
+                    timeList.add(i,tm);
+                }else if (dm!=null&&dm.equals("宝安区")){
+                    waterList.add(i,rz);
+                    timeList.add(i,tm);
+                }else if (dm!=null&&dm.equals("福田区")){
+                    waterList.add(i,rz);
+                    timeList.add(i,tm);
+                }
+            }
+            map1.put("waterList",waterList);
+            map1.put("timeList",timeList);
+            map2.put("waterList",waterList2);
+            map2.put("timeList",timeList2);
+            map3.put("waterList",waterList3);
+            map3.put("timeList",timeList3);
+            objects.add(map1);
+            objects.add(map2);
+            objects.add(map3);
+        }
+
+        if (objects!=null&&objects.size()>0){
+            return AjaxResult.success("查询成功",objects);
+        }else
+            return AjaxResult.error("查询失败");
+    }
+    */
+/* @ApiOperation("左屏：统计水库、河道、积涝点水位预警数目")
     @GetMapping("/findWaterAlwtlv")
     public AjaxResult cfindWaterAlwtlv(){
         getAuthParams = new GetAuthParams("findWaterAlwtlv");
@@ -48,208 +326,10 @@ public class WebController extends BaseController {
            return AjaxResult.success("查询成功",objects);
        }
        return AjaxResult.error("查询失败");
-    }
-    @ApiOperation("应急信息")
-    @GetMapping("/findAreaCount")
-    public AjaxResult cfindAreaCount(){
-        GetAuthParams getAuthParams1 = new GetAuthParams("findAreaCount");
-        String waterAlwtlv = zhsfServicePort.findAreaCount(getAuthParams1.appkey, getAuthParams1.time, getAuthParams1.sigin);
-        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
-        JSONArray result = jsonObject.getJSONArray("RESULT");
-        JSONArray objects = new JSONArray();
-        Map<Object, Object> map1 = new HashMap<>();
-        map1.put("DSNM","光明区");
-        map1.put("PNUM",0);
-        Map<Object, Object> map2 = new HashMap<>();
-        map2.put("DSNM","宝安区");
-        map2.put("PNUM",0);
-        Map<Object, Object> map3 = new HashMap<>();
-        map3.put("DSNM","龙华区");
-        map3.put("PNUM",0);
-        Map<Object, Object> map4 = new HashMap<>();
-        map4.put("DSNM","南山区");
-        map4.put("PNUM",0);
-        Map<Object, Object> map5 = new HashMap<>();
-        map5.put("DSNM","福田区");
-        map5.put("PNUM",0);
-        Map<Object, Object> map6 = new HashMap<>();
-        map6.put("DSNM2","罗湖区");
-        map6.put("PNUM",0);
-        Map<Object, Object> map7 = new HashMap<>();
-        map7.put("DSNM","盐田区");
-        map7.put("PNUM",0);
-        Map<Object, Object> map8 = new HashMap<>();
-        map8.put("DSNM","龙岗区");
-        map8.put("PNUM",0);
-        Map<Object, Object> map9 = new HashMap<>();
-        map9.put("DSNM","坪山区");
-        map9.put("PNUM",0);
-        Map<Object, Object> map10 = new HashMap<>();
-        map10.put("DSNM","大鹏新区");
-        map10.put("PNUM",0);
-        Map<Object, Object> map11 = new HashMap<>();
-        map11.put("DSNM","深汕合作区");
-        map11.put("PNUM",0);
-        for (int i=0;i<result.size();i++){
-            HashMap<Object, Object> map = new HashMap<>();
-            JSONObject jsonObject1 = result.getJSONObject(i);
-            String dsnm = jsonObject1.getString("DSNM");
-            Integer ck = jsonObject1.getInteger("CK");
-            Integer bncssl = jsonObject1.getInteger("BNCSSL");
-            Integer qxdw = jsonObject1.getInteger("QXDW");
-            if (dsnm != null && dsnm.equals("光明区")) {
-                map1.put("CK",ck);
-                map1.put("BNCSSL",bncssl);
-                map1.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("宝安区")) {
-                map2.put("CK",ck);
-                map2.put("BNCSSL",bncssl);
-                map2.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("龙华区")) {
-                map3.put("CK",ck);
-                map3.put("BNCSSL",bncssl);
-                map3.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("南山区")) {
-                map4.put("CK",ck);
-                map4.put("BNCSSL",bncssl);
-                map4.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("福田区")) {
-                map5.put("CK",ck);
-                map5.put("BNCSSL",bncssl);
-                map5.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("罗湖区")) {
-                map6.put("CK",ck);
-                map6.put("BNCSSL",bncssl);
-                map6.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("盐田区")) {
-                map7.put("CK",ck);
-                map7.put("BNCSSL",bncssl);
-                map7.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("龙岗区")) {
-                map8.put("CK",ck);
-                map8.put("BNCSSL",bncssl);
-                map8.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("坪山区")) {
-                map9.put("CK",ck);
-                map9.put("BNCSSL",bncssl);
-                map9.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("大鹏新区")) {
-                map10.put("CK",ck);
-                map10.put("BNCSSL",bncssl);
-                map10.put("QXDW",qxdw);
-            } else if (dsnm != null && dsnm.equals("深汕合作区")) {
-                map11.put("CK",ck);
-                map11.put("BNCSSL",bncssl);
-                map11.put("QXDW",qxdw);
-            }
-        }
-        GetAuthParams getAuthParams = new GetAuthParams("findErnyctrinf");
-        String ernyctrinf = zhsfServicePort.findErnyctrinf(getAuthParams.appkey, getAuthParams.time, getAuthParams.sigin);
-        JSONObject jsonObject3 = JSON.parseObject(ernyctrinf);
-        JSONArray result3 = jsonObject3.getJSONArray("RESULT");
-        for (int j=0;j<result3.size();j++) {
-            JSONObject jsonObject2 = result3.getJSONObject(j);
-            String dsnm = jsonObject2.getString("DSNM");
-            if (dsnm != null && dsnm.equals("光明区")) {
-                map1.put("PNUM", (Integer) map1.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("宝安区")) {
-                map2.put("PNUM", (Integer) map2.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("龙华区")) {
-                map3.put("PNUM", (Integer) map3.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("南山区")) {
-                map4.put("PNUM", (Integer) map4.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("福田区")) {
-                map5.put("PNUM", (Integer) map5.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("罗湖区")) {
-                map6.put("PNUM", (Integer) map6.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("盐田区")) {
-                map7.put("PNUM", (Integer) map7.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("龙岗区")) {
-                map8.put("PNUM", (Integer) map8.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("坪山区")) {
-                map9.put("PNUM", (Integer) map9.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("大鹏新区")) {
-                map10.put("PNUM", (Integer) map10.get("PNUM") + 1);
-            } else if (dsnm != null && dsnm.equals("深汕合作区")) {
-                map11.put("PNUM", (Integer) map11.get("PNUM") + 1);
-            }
-        }
-        objects.add(map1);
-        objects.add(map2);
-        objects.add(map3);
-        objects.add(map4);
-        objects.add(map5);
-        objects.add(map6);
-        objects.add(map7);
-        objects.add(map8);
-        objects.add(map9);
-        objects.add(map10);
-        objects.add(map11);
+    }*//*
 
-        if (objects!=null&&objects.size()>0){
-            return AjaxResult.success("查询成功",objects);
-        }
-        return AjaxResult.error("查询失败");
-    }
-
-    @ApiOperation("左屏：按水库工程等级大中型、小（1）、小（2）型统计水位，包括正常、开放式溢洪道溢流、超汛限")
-    @GetMapping("/findWaterRz")
-    public AjaxResult cfindWaterRz(){
-        getAuthParams = new GetAuthParams("findWaterRz");
-        String waterAlwtlv = zhsfServicePort.findWaterRz(getAuthParams.appkey, getAuthParams.time, getAuthParams.sigin);
-        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
-        JSONArray result = jsonObject.getJSONArray("RESULT");
-        JSONArray objects = new JSONArray();
-        Map map=new HashMap();
-        map.put("TP","水库水位");
-        map.put("ZCSL",0);
-        map.put("CXQSL",0);
-        Map map2=new HashMap();
-        map2.put("TP","河道水位");
-        map2.put("ZCSL",0);
-        map2.put("CXQSL",0);
-        Map map3=new HashMap();
-        map3.put("TP","积涝点水位");
-        map3.put("ZCSL",0);
-        map3.put("CXQSL",0);
-        for (int i=0;i<result.size();i++){
-            JSONObject jsonObject1 = result.getJSONObject(i);
-            String tp = jsonObject1.getString("TP");
-
-            Float xxsw = jsonObject1.getFloat("XXSW");
-            String xfcxx = jsonObject1.getString("XFCXX");
-            if (tp!=null&&tp.equals("水库")){
-                if (xfcxx!=null&&xfcxx.equals("否")){
-                    map.put("ZCSL",(Integer)map.get("ZCSL")+1);
-                }else{
-                    map.put("CXQSL",(Integer)map.get("CXQSL")+1);
-                }
-            }else if (tp!=null&&tp.equals("河道")){
-                if (xfcxx!=null&&xfcxx.equals("否")){
-                    map2.put("ZCSL",(Integer)map2.get("ZCSL")+1);
-                }else{
-                    map2.put("CXQSL",(Integer)map2.get("CXQSL")+1);
-                }
-            }if (tp!=null&&tp.equals("积水")){
-                if (xfcxx!=null&&xfcxx.equals("否")){
-                    map3.put("ZCSL",(Integer)map3.get("ZCSL")+1);
-                }else{
-                    map3.put("CXQSL",(Integer)map3.get("CXQSL")+1);
-                }
-            }
-        }
-        objects.add(map);
-        objects.add(map2);
-        objects.add(map3);
-        if (objects!=null&&objects.size()>0){
-            return AjaxResult.success("查询成功",objects);
-        }
-        return AjaxResult.error("查询失败");
-    }
-
-
-
-    @ApiOperation("左屏：统计负责人人数")
+ */
+/*@ApiOperation("左屏：统计负责人人数")
     @GetMapping("/findErnyctrinf")
     public AjaxResult cfindErnyctrinf(){
         GetAuthParams getAuthParams = new GetAuthParams("findErnyctrinf");
@@ -333,8 +413,33 @@ public class WebController extends BaseController {
             return AjaxResult.success("查询成功",objects);
         }
         return AjaxResult.error("查询失败");
-    }
+    }*//*
 
+    */
+/*
+    @ApiOperation("右屏：1、按所属行政区划统计应急避难场所数量；\n" +
+            "2、按所属行政区划统计容纳人数；")
+    @GetMapping("/findAreaCount2")
+    public AjaxResult cfindAreaCount2(){
+        getAuthParams = new GetAuthParams("findAreaCount");
+        String waterAlwtlv = zhsfServicePort.findAreaCount(getAuthParams.appkey, getAuthParams.time, getAuthParams.sigin);
+        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
+        JSONArray result = jsonObject.getJSONArray("RESULT");
+        JSONArray objects = new JSONArray();
+        for (int i=0;i<result.size();i++){
+            JSONObject jsonObject1 = result.getJSONObject(i);
+            String dsnm = jsonObject1.getString("DSNM");
+            Integer bncsSL = jsonObject1.getInteger("BNCSSL");
+            HashMap<Object, Object> map = new HashMap<>();
+            map.put("DSNM",dsnm);
+            map.put("BNCSSL",bncsSL);
+            objects.add(map);
+        }
+        if (result!=null&&result.size()>0){
+            return AjaxResult.success("查询成功",objects);
+        }
+        return AjaxResult.error("查询失败");
+    }
 
     @ApiOperation("中屏：名称、类型、坐标")
     @GetMapping("/findZdfyfxd")
@@ -348,8 +453,7 @@ public class WebController extends BaseController {
         }
         return AjaxResult.error("查询失败");
     }
-    /*
-    * */
+
     @ApiOperation("中屏：名称、类型、坐标(经度，纬度)，区划")
     @GetMapping("/findZdfhdx")
     public AjaxResult cfindZdfhdx(){
@@ -572,29 +676,7 @@ public class WebController extends BaseController {
         return AjaxResult.error("查询失败");
     }
 
-    @ApiOperation("右屏：1、按所属行政区划统计应急避难场所数量；\n" +
-            "2、按所属行政区划统计容纳人数；")
-    @GetMapping("/findAreaCount2")
-    public AjaxResult cfindAreaCount2(){
-        getAuthParams = new GetAuthParams("findAreaCount");
-        String waterAlwtlv = zhsfServicePort.findAreaCount(getAuthParams.appkey, getAuthParams.time, getAuthParams.sigin);
-        JSONObject jsonObject = JSON.parseObject(waterAlwtlv);
-        JSONArray result = jsonObject.getJSONArray("RESULT");
-        JSONArray objects = new JSONArray();
-        for (int i=0;i<result.size();i++){
-            JSONObject jsonObject1 = result.getJSONObject(i);
-            String dsnm = jsonObject1.getString("DSNM");
-            Integer bncsSL = jsonObject1.getInteger("BNCSSL");
-            HashMap<Object, Object> map = new HashMap<>();
-            map.put("DSNM",dsnm);
-            map.put("BNCSSL",bncsSL);
-            objects.add(map);
-        }
-        if (result!=null&&result.size()>0){
-            return AjaxResult.success("查询成功",objects);
-        }
-        return AjaxResult.error("查询失败");
-    }
+
 
     @ApiOperation("右屏：1、按所属行政区划统计三防仓库数量；\n" +
             "2、按所属行政区划统计大流量移动泵数量；\n" +
@@ -673,6 +755,7 @@ public class WebController extends BaseController {
             return AjaxResult.success("查询成功",objects);
         }
         return AjaxResult.error("查询失败");
-    }
+    }*//*
 
 }
+*/

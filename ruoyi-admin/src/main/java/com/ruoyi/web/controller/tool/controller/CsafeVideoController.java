@@ -1,3 +1,4 @@
+/*
 package com.ruoyi.web.controller.tool.controller;
 
 import com.ruoyi.common.annotation.Log;
@@ -23,13 +24,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
+*/
 /**
  * 视频字典Controller
  * 
  * @author ruoyi
  * @date 2020-05-20
- */
-@Api(tags = "视频播放管理")
+ *//*
+
+//@Api(tags = "视频播放管理")
 @RestController
 @RequestMapping("/system/video")
 public class CsafeVideoController extends BaseController
@@ -49,11 +52,13 @@ public class CsafeVideoController extends BaseController
         return prefix + "/video";
     }
 
-    /**
+    */
+/**
      * 查询视频信息列表
-     */
+     *//*
+
     @RequiresPermissions("system:video:getVedio")
-    @ApiOperation("获取视频信息")
+   // @ApiOperation("获取视频信息")
     @ApiImplicitParam(name = "infoId", value = "视频ID", required = true, dataType = "Long", paramType = "query")
     @GetMapping("/getVedio")
     public AjaxResult getVedio(@RequestParam("infoId") Long id)
@@ -68,9 +73,11 @@ public class CsafeVideoController extends BaseController
 
     }
 
-    /**
+    */
+/**
      * 导出视频字典列表
-     */
+     *//*
+
     @RequiresPermissions("system:video:export")
     @Log(title = "视频字典", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -82,21 +89,27 @@ public class CsafeVideoController extends BaseController
         return util.exportExcel(list, "video");
     }
 
-    /**
+    */
+/**
      * 新增视频字典
-     */
+     *//*
+
     @GetMapping("/add")
     public String add()
     {
         return prefix + "/add";
     }
 
-    /**
+    */
+/**
      * 新增保存视频字典
-     */
+     *//*
+
     @ApiOperation("新增视频")
     //@ApiImplicitParam(name = "type", value = "文件类型", dataType = "String", required = true, paramType = "query",example = "file,image,video")
-    /*@RequiresPermissions("system:video:add")*/
+    */
+/*@RequiresPermissions("system:video:add")*//*
+
     @Log(title = "视频字典", businessType = BusinessType.INSERT)
     @PutMapping("/addSave")
     public AjaxResult addSave(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws InterruptedException {
@@ -122,9 +135,11 @@ public class CsafeVideoController extends BaseController
         }
         return AjaxResult.success("上传成功");
     }
-    /**
+    */
+/**
      * 修改视频字典
-     */
+     *//*
+
 
     @GetMapping("/edit/{vedioId}")
     public String edit(@PathVariable("vedioId") Long vedioId, ModelMap mmap)
@@ -134,9 +149,11 @@ public class CsafeVideoController extends BaseController
         return prefix + "/edit";
     }
 
-    /**
+    */
+/**
      * 修改保存视频字典
-     */
+     *//*
+
     @ApiOperation("修改视频")
     @ApiImplicitParam(name = "vedioId", value = "视频Id", dataType = "Long",paramType = "query",required = true)
     @RequiresPermissions("system:video:edit")
@@ -160,9 +177,11 @@ public class CsafeVideoController extends BaseController
         return AjaxResult.error("上传失败");
     }
 
-    /**
+    */
+/**
      * 删除视频字典
-     */
+     *//*
+
     @ApiOperation("删除视频")
     @ApiImplicitParam(name = "vedioId", value = "视频Id", required = true, dataType = "Long", paramType = "query")
     @RequiresPermissions("system:video:remove")
@@ -173,3 +192,4 @@ public class CsafeVideoController extends BaseController
         return toAjax(csafeVideoService.deleteCsafeVideoById(vedioId));
     }
 }
+*/
